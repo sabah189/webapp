@@ -4,7 +4,7 @@
 include("config.php");
 
     $datenow = date('Y-m-d H:i:s');
-    //session_start();    
+    session_start();    
 
 if(isset($_POST["go"])){
 	$user   = $_POST["log"];
@@ -18,25 +18,28 @@ if(isset($_POST["go"])){
 if ($result) 
 {
 
-	
-	$row                      = mysqli_fetch_assoc($result);
+    $row                      = mysqli_fetch_assoc($result);
 	$iduseris                 = $row['user_id'];
+	$statut                   = $row['statut'];
+	$_SESSION["session_login"]= $row['user_name'];
 	
-	//$_SESSION["session_login"]= $row['user_name'];
 
 
     $update1="UPDATE user set last_activity='".$datenow."' WHERE user_name='".$user."' AND user_password='".$passe."'";
     mysqli_query($conn, $update1);
-
 	if ($user=!$row['user_name'] || $passe=!$row['user_password'])
 	{
-		echo "<script>alert(\"Attention ! le nom d'utilisateur ou le mot de passe est incorrect.\")</script>";
-	}
-	
+        echo "<script>alert(\"Attention ! le nom d'utilisateur ou le mot de passe est incorrect.\")</script>";
+    }
 	else{
-
-	header('location: home.php');
-       }
+	if ($statut == 1)
+    {
+        echo "<script>alert(\"Attention ! Votre compte est désactivé.\")</script>";
+    }
+	else{
+        header('location: home.php');
+     }
+}
 }
 }
 

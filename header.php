@@ -1,3 +1,30 @@
+
+<?php
+
+include("config.php");
+
+session_start();   
+ 
+if(isset($_SESSION["session_login"])){
+$query = "SELECT * FROM user WHERE user_name='".$_SESSION["session_login"]."'";
+                                $result = mysqli_query($conn, $query);
+                                $row    = mysqli_fetch_assoc($result);
+                                $iduser = $row['user_id'];
+                                $nameuser = $row['user_name'];
+
+$time     = date('H:i');
+$datetime = date('Y-m-d H:i:s');
+$datenow  = date('Y-m-d');
+$now_year = date('Y');
+$now_mois = date('m');
+$now_jour = date('d');
+}else
+{
+  header("location: index.php");
+}
+?>
+
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -40,6 +67,19 @@
                         </ul>
                             <div class="">
                             <img class="avatar user-thumb pull-right user-name dropdown-toggle" data-toggle="dropdown" src="assets/images/author/avatar.png" alt="avatar">
+                            <span class="user-info">
+									<small>Bienvenue,</small>
+
+									<?php
+                             if(isset($_SESSION["session_login"])){
+                                $query       = "SELECT * FROM user WHERE user_name='".$_SESSION["session_login"]."'";
+                                $result      = mysqli_query($conn, $query);
+                                $row         = mysqli_fetch_assoc($result);
+                                $namesession = $row['user_name'];
+
+                                ?>
+									<?php echo $namesession;  }?>
+								</span>
                 
                             <div class="dropdown-menu">
                              <a class="dropdown-item" href="logout.php"> <i class="ace-icon fa fa-power-off"></i> &nbsp;  Déconnexion</a>
