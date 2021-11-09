@@ -3,8 +3,8 @@
 
 include("config.php");
 
-/* $datenow = date('Y-m-d H:i:s');
-    session_start();    
+ $datenow = date('Y-m-d H:i:s');
+    //session_start();    
 
 if(isset($_POST["go"])){
 	$user   = $_POST["log"];
@@ -27,21 +27,19 @@ if ($result)
 
     $update1="UPDATE user set last_activity='".$datenow."' WHERE user_name='".$user."' AND user_password='".$passe."'";
     mysqli_query($conn, $update1);
+
+
 	if ($user=!$row['user_name'] || $passe=!$row['user_password'])
 	{
         echo "<script>alert(\"Attention ! le nom d'utilisateur ou le mot de passe est incorrect.\")</script>";
     }
-	else{
-	if ($statut == 1)
-    {
-        echo "<script>alert(\"Attention ! Votre compte est désactivé.\")</script>";
-    }
+	
 	else{
         header('location: home.php');
      }
 }
 }
-} */
+ 
 
     
 

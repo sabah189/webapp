@@ -45,14 +45,14 @@
                             <div class="">
                             <img class="avatar user-thumb pull-right user-name dropdown-toggle" data-toggle="dropdown" src="assets/images/author/avatar.png" alt="avatar">
                            <!--  <small>Bienvenue,</small>
-									<?php
+									< ?php
 
                                 $query       = "SELECT * FROM user WHERE name_user='".$_SESSION["session_login"]."'";
                                 $result      = mysqli_query($conn, $query);
                                 $row         = mysqli_fetch_assoc($result);
                                 $namesession = $row['name_user'];
                                 ?>
-									<?php echo $namesession;?> -->
+									< ?php echo $namesession;?> -->
 								
                             <div class="dropdown-menu">
                              <a class="dropdown-item" href="logout.php"> <i class="ace-icon fa fa-power-off"></i> &nbsp;  Déconnexion</a>
