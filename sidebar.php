@@ -22,7 +22,7 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="index.php"><img src="assets/images/icon/logop.png" alt="logo" style="width:90px"></a>
+                    <a href="home.php"><img src="assets/images/icon/logop.png" alt="logo" style="width:90px"></a>
                 </div>
             </div>
             <div class="main-menu">
@@ -30,7 +30,7 @@
                     <nav>
                         <ul class="metismenu" id="menu">
                             <li class="">
-                                <a href="index.php" ><i class="ti-dashboard"></i><span>Tableau de bord</span></a>
+                                <a href="home.php" ><i class="ti-dashboard"></i><span>Tableau de bord</span></a>
                               
                             </li>
                             <li>

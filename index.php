@@ -1,9 +1,47 @@
-<?php 
+<?php
 
-include('config.php');
 
+include("config.php");
+
+    $datenow = date('Y-m-d H:i:s');
+    //session_start();    
+
+if(isset($_POST["go"])){
+	$user   = $_POST["log"];
+	$passe1 = $_POST["pas"];
+	$passe  = md5($passe1);
+
+    $query = "SELECT * FROM user WHERE user_name='".$user."' AND user_password='".$passe."'";
+    $result = mysqli_query($conn, $query);
+
+
+if ($result) 
+{
+
+	
+	$row                      = mysqli_fetch_assoc($result);
+	$iduseris                 = $row['user_id'];
+	
+	//$_SESSION["session_login"]= $row['user_name'];
+
+
+    $update1="UPDATE user set last_activity='".$datenow."' WHERE user_name='".$user."' AND user_password='".$passe."'";
+    mysqli_query($conn, $update1);
+
+	if ($user=!$row['user_name'] || $passe=!$row['user_password'])
+	{
+		echo "<script>alert(\"Attention ! le nom d'utilisateur ou le mot de passe est incorrect.\")</script>";
+	}
+	
+	else{
+
+	header('location: home.php');
+       }
+}
+}
 
 ?>
+
 
 
 <!doctype html>
@@ -12,9 +50,9 @@ include('config.php');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Tableau de bord</title>
+    <title>Login-Dento</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/icon/dent.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icon/dent.png">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/themify-icons.css">
@@ -33,251 +71,49 @@ include('config.php');
 </head>
 
 <body>
-<?php 
-      include('sidebar.php'); 
-      
-      ?>
- 
-  
-  
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
     
-    
-        <!-- main content area start -->
-        <div class="main-content">
-
-         
-        <?php 
-      include('header.php'); 
-      
-      ?>
-
-            <div class="main-content-inner">
-                <div class="row">
-                    <!-- seo fact area start -->
-                    <div class="col-lg-8">
-                        <div class="row">
-                             <div class="col-md-6 mt-5 mb-3">
-                                <div class="card">
-                                <div class="seo-fact sbg1">
-                                        
-                                        <div class="p-4 d-flex justify-content-between align-items-center">
-                                            
-                                            <div class="seofct-icon"><i class="ti-user"></i><a href="patient.php" style ="color:white"> Patients</div>
-                                            <?php
-
-												 $result = mysqli_query($conn,"SELECT * FROM patient ");
-                                                      $num_rows = mysqli_num_rows($result);
-                                                {
-                                                  ?>
-                                            <h2><?php echo htmlentities($num_rows);  } ?>	</h2>
-                                            
-												
-												</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="col-md-6 mt-md-5 mb-3">
-                                <div class="card">
-                                
-                                       
-                                    <div class="seo-fact sbg2">
-                                        <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="ti-calendar"></i><a href="appointment.php" style ="color:white"> Rendez-vous</div>
-                                            <?php
-
-                                                $result = mysqli_query($conn,"SELECT * FROM rdv ");
-                                                    $num_rows = mysqli_num_rows($result);
-                                                {
-                                                ?>
-                                                <h2><?php echo htmlentities($num_rows);  } ?>	</h2>
-
-
-                                                </a>
-                                   
-                                    </div>                             
-                                   </div>
-                                </div>
-                            </div>
-
-
+    <!-- login area start -->
+    <div class="login-area login-bg"style="background-image: url('assets/images/bg/login.jpeg');background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;">
+        <div class="container">
+            <div class="login-box ptb--100">
+                <form method="post" action="">
+                    <div class="login-form-head">
+                        <h4></h4>
+                        <p>Veuillez saisir vos informations : </p>
+                    </div>
+                    <div class="login-form-body">
+                        <div class="form-gp">
+                            <label for="exampleInputEmail1">Nom d'utilisateur</label>
+                            <input type="text" id="exampleInputEmail1" name="log">
+                            <i class="ti-user"></i>
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="form-gp">
+                            <label for="exampleInputPassword1">Mot de passe</label>
+                            <i class="ti-lock"></i>
+                            <input type="password" id="exampleInputPassword1" name="pas">
                             
-                       
-                         
+                            <div class="text-danger"></div>
+                        </div>
+                        
+                        <div class="submit-btn-area">
+                            <button id="form_submit" type="submit" name="go">Se connecter <i class="ti-arrow-right"></i></button>
+                        </div>
+                        <div class="form-footer text-center mt-5">
+                            <p class="text-muted">Pour plus d'information et support contactez nous ! </p>
+                            &nbsp;
+                            <p class="text-muted">User : admin  </p>   <p class="text-muted">Password : admin  </p>
                         </div>
                     </div>
-                    <!-- seo fact area end -->
-                
-          
-                    <!-- Advertising area start -->
-                    <div class="col-lg-4 mt-5">
-                        <div class="card h-full seo-fact sbg5">
-                              
-                        <div class="p-4 d-flex justify-content-between align-items-center">
-                        <h4 class="header-title mb-0">Total Paiement</h4>
-                        <select class="custome-select border-0 pr-3">
-                                            <option selected="">La semaine dernière </option>
-                                            <option value="0">le mois dernier </option>
-                                        </select>
-                                        </div>
-
-
-                                <canvas id="coin_sales5" height="100" width="302" style="display: block; height: 80px; width: 242px;" class="chartjs-render-monitor"></canvas>                            </div>
-                    </div>
-                    <!-- Advertising area end -->
-                    <!-- sales area start -->
-                    <div class="col-xl-6   mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                              
-                                 <!-- data table start -->
-                    <div class="col-12 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">les rendez vous d'aujourd'hui :</h4>
-                                <div class="data-tables">
-                                <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th>Patient</th>
-                <th>Heure</th>
-                <th>Type</th>
-                <th>Etat</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-        <?php  
-			$query  = "SELECT rdv.id_rdv,rdv.type as type,rdv.heure as heure,pat.nom as nom,pat.prenom as prenom,statut FROM patient pat,rdv rdv 
-					   WHERE rdv.pat_id=pat.pat_id AND DATE(`date`) = CURDATE() and statut=0" ;
-
-						$result =  mysqli_query($conn,$query);
-
-						while ($et = mysqli_fetch_assoc($result))  { 
-							 ?>
-        
-    
-            <tr>
-                <td><?php echo ($et['nom']); ?>      <?php echo ($et['prenom']); ?></td>
-                <td><?php echo ($et['heure']); ?></td>
-                <td><?php echo ($et['type']); ?></td>
-                
-            
-                      
-              <td>
-              <?php 
-	  
-	  if ($et ['statut'] == 1) {
-		  echo '<p> <a href="status.php?id_rdv= '.$et[ 'id_rdv' ] . '& statut=0 " class=" label label-primary" id="modal"> En attente</a></p>';
-	  }
-	  else{
-		  echo '<p> <a href="status.php?id_rdv= '.$et[ 'id_rdv' ] . '& statut=1 " class=" label label-warning"> En cours</a></p>';
-		  
-	  }
-			
-	  
-	  
-?>
-</td>
-            </tr>
-   
-         
-            <?php } ?>
-                </tbody>
-    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- data table end -->
-                               
-                            </div>
-                        </div>
-                    </div>
-                    <!-- sales area end -->
-             
-
-                           <!-- sales area start -->
-                           <div class="col-xl-6   mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                 <!-- data table start -->
-                                 <div class="col-12 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">En attente :</h4>
-                                <div class="data-tables">
-                                <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th>Patient</th>
-                <th>Heure</th>
-                <th>Type</th>
-                <th>Etat</th>
-             
-                
-            </tr>
-        </thead>
-        <tbody>
-        <?php  
-			$query  = "SELECT rdv.id_rdv,rdv.type as type,rdv.heure as heure,pat.nom as nom,pat.prenom as prenom,statut FROM patient pat,rdv rdv 
-					   WHERE rdv.pat_id=pat.pat_id AND DATE(`date`) = CURDATE() and statut=1 " ;
-
-						$result =  mysqli_query($conn,$query);
-
-						while ($et = mysqli_fetch_assoc($result))  { 
-							 ?>
-        
-    
-            <tr>
-                <td><?php echo ($et['nom']); ?>      <?php echo ($et['prenom']); ?></td>
-                <td><?php echo ($et['heure']); ?></td>
-                <td><?php echo ($et['type']); ?></td>
-               
-              <td>
-              <?php 
-	  
-	  if ($et ['statut'] == 1) {
-		  echo '<p>  En attente</p>';
-	  }
-	  else{
-		  echo '<p> <a href="status.php?id_rdv= '.$et[ 'id_rdv' ] . '& statut=1 " class=" label label-warning"> En cours</a></p>';
-		  
-	  }
-			
-	  
-	  
-?>
-</td>
-            </tr>
-   
-         
-            <?php } ?>
-                </tbody>
-    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- data table end -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- sales area end -->
-      
-                </div>
+                </form>
             </div>
         </div>
-        <!-- main content area end -->
-        <!-- footer area start-->
-        <?php 
-      include('footer.php'); 
-      
-      ?>
-        <!-- footer area end-->
-    </>
-    <!-- page container area end -->
-    
+    </div>
+    <!-- login area end -->
+
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
@@ -287,28 +123,7 @@ include('config.php');
     <script src="assets/js/metisMenu.min.js"></script>
     <script src="assets/js/jquery.slimscroll.min.js"></script>
     <script src="assets/js/jquery.slicknav.min.js"></script>
-
-    <!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <!-- start amcharts -->
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-    <!-- all line chart activation -->
-    <script src="assets/js/line-chart.js"></script>
-    <!-- all pie chart -->
-    <script src="assets/js/pie-chart.js"></script>
-    <!-- all bar chart -->
-    <script src="assets/js/bar-chart.js"></script>
-    <!-- all map chart -->
-    <script src="assets/js/maps.js"></script>
+    
     <!-- others plugins -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>

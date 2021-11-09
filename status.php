@@ -10,7 +10,7 @@ $id         =$_GET ['id_rdv'];
 $q  ="UPDATE rdv set statut =1 where id_rdv =$id";
 mysqli_query($conn,$q);
 
-header('location:index.php');
+header('location:home.php');
 
 
 
