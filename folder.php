@@ -46,7 +46,9 @@ if (isset($_POST['ajouter']))
 
   $code   = $_GET['code']; 
   $req4   ="SELECT * FROM consultation WHERE pat_id=$code ";
-  $rs4    = mysqli_query($conn,$req4);
+
+  //$req4   = " SELECT acte,date_cons,motif,type,tarif,id_acte FROM consultation cons, acte WHERE acte.id_acte=cons.id_acte AND cons.pat_id=$code ";
+  $rs4    =  mysqli_query($conn,$req4);
 
    
   $code = $_GET['code'];    
@@ -79,7 +81,7 @@ if (isset($_POST['ajouter']))
       	<!-- Site favicon -->
 	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/icon/dent.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dossier</title>
+    <title>Dossier du patient</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">

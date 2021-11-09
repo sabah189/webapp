@@ -1,6 +1,25 @@
 <?php 
 
 include('config.php');
+/* 
+session_start();    
+if(isset($_SESSION["session_login"])){
+$query = "SELECT * FROM user WHERE name_user='".$_SESSION["session_login"]."'";
+                                $result = mysqli_query($conn, $query);
+                                $row = mysqli_fetch_assoc($result);
+                                $iduser= $row['id_user'];
+                                $nameuser = $row['name_user'];
+
+$time = date('H:i');
+$datetime = date('Y-m-d H:i:s');
+$datenow = date('Y-m-d');
+$now_year = date('Y');
+$now_mois = date('m');
+$now_jour = date('d');
+}else
+{
+  header("location: index.php");
+} */
 
 
 ?>

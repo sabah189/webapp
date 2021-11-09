@@ -3,7 +3,7 @@
 
 include("config.php");
 
-    $datenow = date('Y-m-d H:i:s');
+/* $datenow = date('Y-m-d H:i:s');
     session_start();    
 
 if(isset($_POST["go"])){
@@ -41,7 +41,9 @@ if ($result)
      }
 }
 }
-}
+} */
+
+    
 
 ?>
 
